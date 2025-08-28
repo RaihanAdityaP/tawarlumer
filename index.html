@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Home — Tawar Lumer</title>
+  <style>
+/* =========================
+   Root & Reset
+========================= */
+:root {
+  ---bg: #0f1724;
+  --card: #0b1220;
+  --muted: #94a3b8;
+  --accent: #ffb86b;
+  --accent-2: #7cc7ff;
+  --glass: rgba(255, 255, 255, 0.04);
+  --radius: 14px;
+  --maxw: 1100px;
+  --text: #e6eef8;
+  --gradient-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --glass: rgba(255, 255, 255, 0.1);
+  --border: rgba(255, 255, 255, 0.2);
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+* { 
+  box-sizing: border-box; 
+  margin: 0;
+  padding: 0;
+}
+
+body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      background: linear-gradient(180deg, #071428 0%, #0f1724 100%);
+      color: var(--text);
+      line-height: 1.5;
+      padding-top: 80px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* =========================
+   Header
+========================= */
+.site-header {
+  background: rgba(26, 31, 54, 0.9);
+  padding: 1rem 0;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.main-nav {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.nav-link {
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  position: relative;
+}
+
+.nav-link:hover {
+  background: var(--glass);
+  color: var(--text);
+  transform: translateY(-2px);
+}
+
+.nav-link.active {
+  background: linear-gradient(45deg, var(--accent), var(--accent-2));
+  color: white;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+}
+
+.nav-toggle {
+  display: none;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* =========================
+   Buttons & Cards
+========================= */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, var(--accent), var(--accent-2));
+  color: white;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+}
+
+.card {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  padding: 2rem;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.grid-2 { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+  gap: 2rem; 
+  margin-top: 2rem; 
+} 
+
+.grid-3 { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+  gap: 2rem; 
+  margin-top: 2rem; 
+} 
+
+/* =========================
+   Hero Section
+========================= */
+.hero {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: white;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.hero .lead {
+  font-size: 1.2rem;
+  color: white;
+  margin-bottom: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.stats > div {
+  background: var(--glass);
+  padding: 1.5rem;
+  border-radius: 15px;
+  flex: 1;
+  min-width: 200px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+
+/* =========================
+   Event Card Special
+========================= */
+.event-discount {
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(78, 205, 196, 0.2));
+  border: 2px solid var(--accent);
+  position: relative;
+  overflow: hidden;
+}
+
+.event-discount::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform: rotate(45deg);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+.event-discount h3 {
+  font-size: 1.5rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+/* =========================
+   Summary Section
+========================= */
+.summary {
+  margin-top: 4rem;
+}
+
+.summary h2 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--text);
+}
+
+.summary > p {
+  text-align: center;
+  font-size: 1.1rem;
+  color: white;
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  line-height: 1.7;
+}
+
+.spotlight {
+  background: linear-gradient(135deg, rgba(78, 205, 196, 0.1), rgba(255, 230, 109, 0.1));
+  border-left: 4px solid var(--accent-2);
+}
+
+.spotlight ul {
+  list-style: none;
+  padding: 0;
+}
+
+.spotlight li {
+  padding: 0.5rem 0;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.spotlight li::before {
+  content: '✨';
+  position: absolute;
+  left: 0;
+  color: var(--accent-2);
+}
+
+/* =========================
+   Footer
+========================= */
+.site-footer {
+  margin-top: 4rem;
+  padding: 2rem 0;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  background: var(--glass);
+}
+
+/* =========================
+   Modal
+========================= */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(10px);
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.modal-content {
+  background: var(--card);
+  padding: 2rem;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  animation: modalIn 0.4s ease;
+  position: relative;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.modal .close {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--muted);
+  transition: color 0.3s ease;
+}
+
+.modal .close:hover { 
+  color: var(--accent);
+}
+
+@keyframes modalIn {
+  from { 
+    opacity: 0; 
+    transform: scale(0.8) translateY(-50px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1) translateY(0); 
+  }
+}
+
+/* =========================
+   Responsive
+========================= */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .nav-toggle { 
+    display: block; 
+  }
+  
+  .main-nav { 
+    display: none; 
+  }
+  
+  .header-inner.open .main-nav {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(26, 31, 54, 0.95);
+    padding: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  
+  .stats {
+    flex-direction: column;
+  }
+  
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <img src="logo.jpg" alt="Tawar Lumer" class="logo" />
+        <span class="brand-name">Tawar Lumer</span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="swot.html" class="nav-link">SWOT</a>
+        <a href="segmentasi.html" class="nav-link">Segmentasi</a>
+        <a href="harga.html" class="nav-link">Harga</a>
+        <a href="promosi.html" class="nav-link">Promosi</a>
+      </nav>
+      <button class="nav-toggle" aria-label="toggle menu">☰</button>
+    </div>
+  </header>
+
+  <main class="container main">
+    <!-- Hero -->
+    <section class="hero">
+      <h1>Roti yang Renyah, Roti yang Lumer</h1>
+      <p class="lead">
+        <strong>Tawar Lumer menyajikan roti tawar bertekstur lembut di dalam, renyah di luar,
+        dengan isian manis yang lumer saat digigit — camilan praktis, modern, dan lezat.</strong>
+      </p>
+
+      <div class="grid-2">
+        <!-- Event -->
+        <div class="card event-discount">
+          <h3>🎉 Event Spesial!</h3>
+          <p>
+            Dapatkan <strong>Diskon 6%</strong> diberikan untuk <strong>produk pembelian pertama</strong>
+            sebagai apresiasi kepada <strong>pelanggan awal.</strong>
+          </p>
+          <a href="promosi.html" class="btn btn-primary">Pesan Sekarang</a>
+        </div>
+
+        <!-- Tujuan -->
+        <div class="card spotlight">
+          <h3>Tujuan Penjualan</h3>
+          <ul>
+            <li>Memperkenalkan inovasi roti modern sebagai alternatif cemilan</li>
+            <li>Menyediakan produk lezat, praktis, dan tidak membosankan</li>
+            <li>Menciptakan pengalaman kuliner baru yang menarik</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card stats">
+        <div><strong>Target</strong><span> Segmen menengah ke bawah</span></div>
+        <div><strong>Kelebihan</strong><span> Tanpa pengawet • Fresh made</span></div>
+      </div>
+    </section>
+
+    <!-- Summary -->
+    <section class="summary">
+      <h2>Ringkasan Eksekutif</h2>
+      <p>
+        <strong> Tawar Lumer adalah inovasi snack yang menarget konsumen dari anak-anak hingga orang dewasa,
+        cocok untuk sarapan, camilan, atau pendamping minum. Fokus pada rasa dan kesegaran tanpa bahan pengawet. </strong>
+      </p>
+      <div class="grid-3">
+        <div class="card">
+          <h4>Pelanggan Utama</h4>
+          <p>Pelajar, pekerja kantoran, ibu rumah tangga, konsumen urban yang mencari pilihan praktis namun sehat.</p>
+        </div>
+        <div class="card">
+          <h4>Strategi Produksi</h4>
+          <p>Produksi harian (fresh made), PO / made-by-order untuk menjaga kualitas.</p>
+        </div>
+        <div class="card">
+          <h4>Pemasaran</h4>
+          <p>Promosi di area sekolah, kampus, kantor, dan pasar; penekanan pada kealamian (tanpa pengawet).</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year-harga"></span> Tawar Lumer - Home</p>
+    </div>
+  </footer>
+
+  <!-- Popup Event Modal -->
+  <div id="eventModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div class="card event-discount">
+        <h3>🎉 Event Spesial!</h3>
+        <p>
+          Dapatkan <strong>Diskon 6%</strong> untuk <strong>produk pembelian pertama</strong>
+          sebagai apresiasi kepada <strong>pelanggan awal</strong>.
+        </p>
+        <a href="promosi.html" class="btn btn-primary">Pesan Sekarang</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Update year
+  const year = new Date().getFullYear();
+  const yearEl = document.getElementById('year-harga');
+  if (yearEl) yearEl.textContent = year;
+
+  // Mobile navigation toggle
+  const navToggle = document.querySelector('.nav-toggle');
+  const headerInner = document.querySelector('.header-inner');
+  if (navToggle && headerInner) {
+    navToggle.addEventListener('click', () => {
+      headerInner.classList.toggle('open');
+    });
+  }
+
+  // Event popup modal
+  const eventModal = document.getElementById('eventModal');
+  if (eventModal) {
+    const closeBtn = eventModal.querySelector('.close');
+    let eventShown = false;
+    
+    // Show popup on first visit
+    setTimeout(() => {
+      if (!eventShown) {
+        eventModal.style.display = 'flex';
+        eventShown = true;
+      }
+    }, 1000);
+    
+    // Close popup handlers
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        eventModal.style.display = 'none';
+      });
+    }
+    
+    window.addEventListener('click', (e) => {
+      if (e.target === eventModal) {
+        eventModal.style.display = 'none';
+      }
+    });
+  }
+});
+  </script>
+</body>
+</html>

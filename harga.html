@@ -1,0 +1,739 @@
+<!doctype html>  
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Harga — Perhitungan</title>
+  <style>
+    /* =========================
+       Root & Reset
+    ========================= */
+    :root {
+      --bg: #0f1724;
+      --card: #0b1220;
+      --muted: #94a3b8;
+      --accent: #ffb86b;
+      --accent-2: #7cc7ff;
+      --glass: rgba(255, 255, 255, 0.04);
+      --radius: 14px;
+      --maxw: 1100px;
+      --text: #e6eef8;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      background: linear-gradient(180deg, #071428 0%, #0f1724 100%);
+      color: var(--text);
+      line-height: 1.5;
+      padding-top: 80px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 28px;
+    }
+
+    /* =========================
+    Header
+    ========================= */
+    .site-header {
+      background: rgba(26, 31, 54, 0.9);
+      padding: 1rem 0;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .logo {
+      width: 46px;
+      height: 46px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .main-nav {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .nav-link {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .nav-link:hover {
+      background: var(--glass);
+      color: var(--text);
+    }
+
+    .nav-link.active {
+      background: linear-gradient(45deg, var(--accent), var(--accent-2));
+      color: white;
+      box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+    }
+
+    .nav-toggle {
+      display: none;
+    }
+
+    /* =========================
+       Buttons
+    ========================= */
+    .btn {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 10px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.06);
+      color: var(--text);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #071428;
+      border: 0;
+      box-shadow: 0 4px 15px rgba(255,184,107,0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255,184,107,0.4);
+    }
+
+    /* =========================
+       Cards & Content
+    ========================= */
+    .card {
+      background: rgba(255,255,255,0.02);
+      padding: 24px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.03);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      margin-bottom: 24px;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+
+    .content h1 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .content > p {
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      max-width: 800px;
+    }
+
+    /* =========================
+       Harga Cards & Pills
+    ========================= */
+    .harga-now {
+      background: linear-gradient(135deg, rgba(255,184,107,0.08), rgba(124,199,255,0.08));
+      border: 1px solid rgba(255,184,107,0.2);
+    }
+
+    .harga-now h2 {
+      margin: 0 0 20px;
+      font-size: 1.6rem;
+      color: var(--accent);
+      text-align: center;
+    }
+
+    .pill-nav {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      background: rgba(0,0,0,0.3);
+      padding: 6px;
+      border-radius: 50px;
+      justify-content: center;
+    }
+
+    .pill {
+      flex: 1;
+      max-width: 200px;
+      padding: 10px 20px;
+      border-radius: 50px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .pill.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #071428;
+      font-weight: 600;
+      transform: scale(1.02);
+      box-shadow: 0 4px 15px rgba(255,184,107,0.3);
+    }
+
+    .pill:hover:not(.active) {
+      background: rgba(255,255,255,0.1);
+      color: var(--text);
+    }
+
+    .menu-cards {
+      display: flex;
+      justify-content: center;
+    }
+
+    .menu-card {
+      display: none;
+      background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+      padding: 32px;
+      border-radius: 20px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+      max-width: 400px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .menu-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    }
+
+    .menu-card.active {
+      display: block;
+      animation: fadeInScale 0.4s ease-out;
+    }
+
+    .menu-card h3 {
+      margin: 0 0 16px;
+      font-size: 1.5rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .menu-card .price {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 16px 0;
+    }
+
+    .menu-card .description {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+
+    .menu-card .features {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+
+    .menu-card .features li {
+      padding: 8px 0;
+      color: var(--text);
+      position: relative;
+      padding-left: 24px;
+    }
+
+    .menu-card .features li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* =========================
+       Kalkulator
+    ========================= */
+    .kalkulator {
+      background: linear-gradient(135deg, rgba(124,199,255,0.08), rgba(255,184,107,0.08));
+      border: 1px solid rgba(124,199,255,0.2);
+    }
+
+    .kalkulator h2 {
+      margin-top: 0;
+      margin-bottom: 24px;
+      font-size: 1.6rem;
+      color: var(--accent-2);
+      text-align: center;
+    }
+
+    .calc-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 16px 0;
+      gap: 16px;
+    }
+
+    .calc-row label {
+      flex: 1;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .calc-row input {
+      flex: 1;
+      max-width: 200px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .calc-row input:focus {
+      outline: none;
+      border-color: var(--accent-2);
+      box-shadow: 0 0 0 3px rgba(124,199,255,0.1);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .calc-actions {
+      margin-top: 24px;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .result {
+      margin-top: 24px;
+      padding: 20px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .result p strong {
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+
+    .result ul {
+      margin: 16px 0;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .result ul li {
+      padding: 8px 0;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .result ul li:last-child {
+      border-bottom: none;
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+
+    .result ul li span {
+      font-weight: 600;
+      color: var(--accent-2);
+    }
+
+    .result .hint {
+      margin-top: 16px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-style: italic;
+      text-align: center;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* =========================
+       Footer
+    ========================= */
+   .site-footer {
+      margin-top: 4rem;
+      padding: 2rem 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      background: var(--glass);
+    }
+
+    .site-footer p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    /* =========================
+       Responsive
+    ========================= */
+    @media (max-width: 768px) {
+      .container { 
+        padding: 20px; 
+      }
+      
+      .content h1 {
+        font-size: 1.8rem;
+      }
+
+      .nav-toggle { 
+        display: block; 
+      }
+      
+      .main-nav { 
+        display: none; 
+      }
+      
+      .header-inner.open .main-nav {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        right: 18px;
+        min-width: 160px;
+        padding: 12px;
+        border-radius: 8px;
+        background: rgba(6,10,16,0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      }
+
+      .pill-nav {
+        flex-direction: column;
+        background: none;
+        padding: 0;
+        gap: 8px;
+      }
+
+      .pill {
+        max-width: none;
+        border-radius: 12px;
+        padding: 12px 20px;
+        border: 1px solid rgba(255,255,255,0.1);
+      }
+
+      .pill.active {
+        transform: none;
+        border: 1px solid var(--accent);
+      }
+
+      .menu-card {
+        padding: 24px 20px;
+      }
+
+      .menu-card .price {
+        font-size: 2rem;
+      }
+
+      .calc-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+
+      .calc-row input {
+        max-width: none;
+      }
+
+      .calc-actions {
+        flex-direction: column;
+      }
+
+      .result ul li {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand"><img src="logo.jpg" alt="logo" class="logo"/><span class="brand-name">Tawar Lumer</span></a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="swot.html" class="nav-link">SWOT</a>
+        <a href="segmentasi.html" class="nav-link">Segmentasi</a>
+        <a href="harga.html" class="nav-link active">Harga</a>
+        <a href="promosi.html" class="nav-link">Promosi</a>
+      </nav>
+      <button class="nav-toggle" aria-label="toggle menu">☰</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="content">
+      <h1>Perhitungan Harga Jual</h1>
+
+      <!-- Harga dengan pill nav -->
+      <div class="card harga-now">
+        <h2>💰 Menu & Harga Terkini</h2>
+        
+        <div class="pill-nav">
+          <button class="pill active" data-target="card-tanpa">Tanpa Topping</button>
+          <button class="pill" data-target="card-dengan">Dengan Topping</button>
+        </div>
+
+        <div class="menu-cards">
+          <!-- Card Tanpa Topping -->
+          <div id="card-tanpa" class="menu-card active">
+            <h3>🍞 Original Tawar Lumer</h3>
+            <div class="price">Rp 8.500</div>
+            <p class="description">Harga yang telah ditetapkan berdasarkan analisis pasar dan perhitungan laba</p>
+            <ul class="features">
+              <li>Tekstur super lembut</li>
+              <li>Rasa original premium</li>
+              <li>Tanpa pengawet buatan</li>
+              <li>Dibuat fresh setiap hari</li>
+            </ul>
+          </div>
+
+          <!-- Card Dengan Topping -->
+          <div id="card-dengan" class="menu-card">
+            <h3>🍞✨ Tawar Lumer Premium</h3>
+            <div class="price">Rp 10.000</div>
+            <p class="description">Varian premium dengan topping yang memberikan value lebih tinggi</p>
+            <ul class="features">
+              <li>Pilihan topping lengkap</li>
+              <li>Rasa lebih kaya dan beragam</li>
+              <li>Presentasi menarik</li>
+              <li>Value terbaik dengan topping</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card kalkulator">
+        <h2>🧮 Kalkulator Harga Dinamis</h2>
+        <div class="calc-row">
+          <label>💰 Modal total (Rp):</label>
+          <input type="number" id="modal" value="97264" />
+        </div>
+        <div class="calc-row">
+          <label>📦 Jumlah produk:</label>
+          <input type="number" id="qty" value="14" />
+        </div>
+        <div class="calc-row">
+          <label>📈 Persentase laba (%):</label>
+          <input type="number" id="profitPct" value="20" />
+        </div>
+        <div class="calc-actions">
+          <button id="calcBtn" class="btn btn-primary">🔄 Hitung Harga</button>
+          <button id="resetBtn" class="btn">↻ Reset</button>
+        </div>
+
+        <div class="result" id="result">
+          <p><strong>📊 Hasil Perhitungan:</strong></p>
+          <ul>
+            <li>Modal total: <span id="resModal">Rp -</span></li>
+            <li>Laba (Rp): <span id="resProfit">Rp -</span></li>
+            <li>Harga jual total: <span id="resTotal">Rp -</span></li>
+            <li>Harga per produk: <span id="resPer">Rp -</span></li>
+          </ul>
+          <p class="hint">💡 Contoh: modal Rp 97.264 / 14 produk, laba 20% → Rp 8.336,85 ≈ Rp 8.500</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container"><p>© <span id="year-harga"></span> Tawar Lumer - Harga</p></div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Update year placeholders
+      const year = new Date().getFullYear();
+      ['year','year-swot','year-seg','year-harga','year-cara','year-prom'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = year;
+      });
+
+      // Nav toggle mobile
+      const navToggle = document.querySelector('.nav-toggle');
+      const header = document.querySelector('.header-inner');
+      if (navToggle && header) {
+        navToggle.addEventListener('click', () => header.classList.toggle('open'));
+      }
+
+      // Highlight active nav
+      const links = document.querySelectorAll('.main-nav .nav-link');
+      links.forEach(a => {
+        try {
+          const href = a.getAttribute('href');
+          if (href && location.pathname.endsWith(href)) {
+            a.classList.add('active');
+          }
+        } catch(e){}
+      });
+
+      // Pill navigation
+      document.querySelectorAll('.pill').forEach(pill => {
+        pill.addEventListener('click', () => {
+          // Remove active from all pills and cards
+          document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+          document.querySelectorAll('.menu-card').forEach(c => {
+            c.classList.remove('active');
+          });
+
+          // Add active to clicked pill and corresponding card
+          pill.classList.add('active');
+          const targetCard = document.getElementById(pill.dataset.target);
+          if (targetCard) {
+            setTimeout(() => {
+              targetCard.classList.add('active');
+            }, 150);
+          }
+        });
+      });
+
+      // ===== Kalkulator Harga =====
+      const modalInput = document.getElementById('modal');
+      const qtyInput = document.getElementById('qty');
+      const profitInput = document.getElementById('profitPct');
+      const calcBtn = document.getElementById('calcBtn');
+      const resetBtn = document.getElementById('resetBtn');
+
+      const resModal = document.getElementById('resModal');
+      const resProfit = document.getElementById('resProfit');
+      const resTotal = document.getElementById('resTotal');
+      const resPer = document.getElementById('resPer');
+
+      // Default values
+      const defaultValues = {
+        modal: 97264,
+        qty: 14,
+        profit: 20
+      };
+
+      // Set default values on page load
+      if (modalInput && qtyInput && profitInput) {
+        modalInput.value = defaultValues.modal;
+        qtyInput.value = defaultValues.qty;
+        profitInput.value = defaultValues.profit;
+      }
+
+      function formatRupiah(num) {
+        return "Rp " + num.toLocaleString("id-ID");
+      }
+
+      function hitungHarga() {
+        const modal = parseFloat(modalInput.value) || 0;
+        const qty = parseInt(qtyInput.value) || 1;
+        const profitPct = parseFloat(profitInput.value) || 0;
+
+        const profit = modal * (profitPct / 100);
+        const total = modal + profit;
+        const perProduk = total / qty;
+
+        resModal.textContent = formatRupiah(modal);
+        resProfit.textContent = formatRupiah(profit);
+        resTotal.textContent = formatRupiah(total);
+        resPer.textContent = formatRupiah(perProduk);
+
+        // Add animation to results
+        document.getElementById('result').style.animation = 'fadeInScale 0.4s ease-out';
+      }
+
+      if (calcBtn) {
+        calcBtn.addEventListener('click', hitungHarga);
+      }
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          // Reset to default values
+          modalInput.value = defaultValues.modal;
+          qtyInput.value = defaultValues.qty;
+          profitInput.value = defaultValues.profit;
+
+          // Clear results
+          resModal.textContent = "Rp -";
+          resProfit.textContent = "Rp -";
+          resTotal.textContent = "Rp -";
+          resPer.textContent = "Rp -";
+        });
+      }
+
+      // Add input animations
+      document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('focus', () => {
+          input.style.transform = 'scale(1.02)';
+        });
+        input.addEventListener('blur', () => {
+          input.style.transform = 'scale(1)';
+        });
+      });
+
+      // Add button click effects
+      document.querySelectorAll('.btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          btn.style.transform = 'scale(0.98)';
+          setTimeout(() => {
+            btn.style.transform = '';
+          }, 150);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

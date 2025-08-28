@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SWOT — Tawar Lumer</title>
+  <style>
+/* =========================
+   Root & Reset
+========================= */
+:root {
+  --card: #0b1220;
+  --muted: #94a3b8;
+  --accent: #ffb86b;
+  --accent-2: #7cc7ff;
+  --text: #e6eef8;
+  --gradient-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --glass: rgba(255, 255, 255, 0.1);
+  --border: rgba(255, 255, 255, 0.2);
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      background: linear-gradient(180deg, #071428 0%, #0f1724 100%);
+      color: var(--text);
+      line-height: 1.5;
+      padding-top: 80px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* =========================
+   Header
+========================= */
+.site-header {
+  background: rgba(26, 31, 54, 0.9);
+  padding: 1rem 0;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.logo {
+  width: 46px;
+  height: 46px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.main-nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.nav-link {
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  background: var(--glass);
+  color: var(--text);
+}
+
+.nav-link.active {
+  background: linear-gradient(45deg, var(--accent), var(--accent-2));
+  color: white;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+}
+
+.nav-toggle {
+  display: none;
+}
+
+/* =========================
+   Cards SWOT
+========================= */
+.card {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+}
+
+.swot-grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 1.5rem; 
+  margin-top: 2rem;
+}
+
+.swot {
+  min-height: 140px;
+}
+
+.swot.strength { border-left: 4px solid #6ee7b7; }
+.swot.weakness { border-left: 4px solid #f97316; }
+.swot.opportunity { border-left: 4px solid #7dd3fc; }
+.swot.threat { border-left: 4px solid #fda4af; }
+
+h1 {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+section.content p {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+
+.swot h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.swot ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.swot ul li {
+  position: relative;
+  padding-left: 1.25rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+  color: rgba(230, 238, 248, 0.9);
+}
+
+.swot ul li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.swot.strength ul li::before { color: #6ee7b7; }
+.swot.weakness ul li::before { color: #f97316; }
+.swot.opportunity ul li::before { color: #7dd3fc; }
+.swot.threat ul li::before { color: #fda4af; }
+
+/* =========================
+   Footer
+========================= */
+.site-footer {
+  margin-top: 3rem;
+  padding: 1.5rem 0;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  background: var(--glass);
+}
+
+.site-footer p {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* =========================
+   Responsive
+========================= */
+@media (max-width: 768px) {
+  .swot-grid { grid-template-columns: 1fr; }
+  .container { padding: 0 1rem; }
+  .nav-toggle { display: block; }
+  .main-nav { display: none; }
+}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <img src="logo.jpg" alt="logo" class="logo"/>
+        <span class="brand-name">Tawar Lumer</span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="swot.html" class="nav-link active">SWOT</a>
+        <a href="segmentasi.html" class="nav-link">Segmentasi</a>
+        <a href="harga.html" class="nav-link">Harga</a>
+        <a href="promosi.html" class="nav-link">Promosi</a>
+      </nav>
+      <button class="nav-toggle" aria-label="toggle menu">☰</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="content">
+      <h1>Analisis SWOT</h1>
+      <p>Ringkasan SWOT Produk Kami.</p>
+      <div class="swot-grid">
+        <div class="card swot strength">
+          <h3>Strength (Kekuatan)</h3>
+          <ul>
+            <li>Inovasi baru dari roti tawar konvensional</li>
+            <li>Tidak menggunakan bahan pengawet — lebih sehat</li>
+            <li>Cita rasa unik: lumer-d'best-renyah</li>
+          </ul>
+        </div>
+        <div class="card swot weakness">
+          <h3>Weakness (Kelemahan)</h3>
+          <ul>
+            <li>Produk tidak tahan lama tanpa pengawet</li>
+            <li>Butuh distribusi cepat / sistem PO</li>
+          </ul>
+        </div>
+        <div class="card swot opportunity">
+          <h3>Opportunity (Peluang)</h3>
+          <ul>
+            <li>Tren makanan sehat & praktis</li>
+            <li>Potensi pasar luas — sekolah, kampus, kantor</li>
+          </ul>
+        </div>
+        <div class="card swot threat">
+          <h3>Threats (Ancaman)</h3>
+          <ul>
+            <li>Penurunan kualitas jika tidak segera dikonsumsi</li>
+            <li>Persaingan produk cepat saji/roti lainnya</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note card" style="margin-top:1.5rem;">
+        <h4>Solusi untuk kelemahan & ancaman</h4>
+        <p>
+          Mendorong PO / made-by-order, edukasi konsumen bahwa produk tanpa pengawet adalah nilai jual,
+          dan menekankan kesegaran melalui promosi.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year-swot"></span> Tawar Lumer - SWOT</p>
+    </div>
+  </footer>
+  <script>
+    document.getElementById('year-swot').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
