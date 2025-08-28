@@ -89,23 +89,20 @@ body {
 .main-nav {
   display: flex;
   gap: 0.5rem;
-  align-items: center;
 }
 
 .nav-link {
   color: var(--muted);
   text-decoration: none;
-  padding: 0.75rem 1.25rem;
+  padding: 0.5rem 1rem;
   border-radius: 25px;
   transition: all 0.3s ease;
   font-weight: 500;
-  position: relative;
 }
 
 .nav-link:hover {
   background: var(--glass);
   color: var(--text);
-  transform: translateY(-2px);
 }
 
 .nav-link.active {
@@ -119,9 +116,10 @@ body {
   background: var(--glass);
   border: 1px solid var(--border);
   color: var(--text);
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.75rem;
   border-radius: 8px;
   cursor: pointer;
+  font-size: 1.2rem;
 }
 
 /* =========================
@@ -369,21 +367,12 @@ body {
    Responsive
 ========================= */
 @media (max-width: 768px) {
-  .container {
-    padding: 0 1rem;
-  }
-  
-  .nav-toggle { 
-    display: block; 
-  }
-  
-  .main-nav { 
-    display: none; 
-  }
-  
+  .swot-grid { grid-template-columns: 1fr; }
+  .container { padding: 0 1rem; }
+  .nav-toggle { display: block; }
+  .main-nav { display: none; flex-direction: column; gap: 0; }
   .header-inner.open .main-nav {
     display: flex;
-    flex-direction: column;
     position: absolute;
     top: 100%;
     left: 0;
@@ -512,14 +501,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const yearEl = document.getElementById('year-harga');
   if (yearEl) yearEl.textContent = year;
 
-  // Mobile navigation toggle
   const navToggle = document.querySelector('.nav-toggle');
-  const headerInner = document.querySelector('.header-inner');
-  if (navToggle && headerInner) {
-    navToggle.addEventListener('click', () => {
-      headerInner.classList.toggle('open');
-    });
-  }
+    const headerInner = document.querySelector('.header-inner');
+    if (navToggle && headerInner) {
+      navToggle.addEventListener('click', () => {
+        headerInner.classList.toggle('open');
+        // Ubah ikon ☰ jadi ✖ saat menu terbuka
+        if (headerInner.classList.contains('open')) {
+          navToggle.textContent = '✖';
+        } else {
+          navToggle.textContent = '☰';
+        }
+      });
+    }
 
   // Event popup modal
   const eventModal = document.getElementById('eventModal');

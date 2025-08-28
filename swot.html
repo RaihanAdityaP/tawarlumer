@@ -58,6 +58,7 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  position: relative;
 }
 
 .brand {
@@ -103,6 +104,13 @@ body {
 
 .nav-toggle {
   display: none;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.2rem;
 }
 
 /* =========================
@@ -214,7 +222,17 @@ section.content p {
   .swot-grid { grid-template-columns: 1fr; }
   .container { padding: 0 1rem; }
   .nav-toggle { display: block; }
-  .main-nav { display: none; }
+  .main-nav { display: none; flex-direction: column; gap: 0; }
+  .header-inner.open .main-nav {
+    display: flex;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(26, 31, 54, 0.95);
+    padding: 1rem;
+    border-top: 1px solid var(--border);
+  }
 }
   </style>
 </head>
@@ -287,7 +305,19 @@ section.content p {
     </div>
   </footer>
   <script>
-    document.getElementById('year-swot').textContent = new Date().getFullYear();
+    const navToggle = document.querySelector('.nav-toggle');
+    const headerInner = document.querySelector('.header-inner');
+    if (navToggle && headerInner) {
+      navToggle.addEventListener('click', () => {
+        headerInner.classList.toggle('open');
+        // Ubah ikon ☰ jadi ✖ saat menu terbuka
+        if (headerInner.classList.contains('open')) {
+          navToggle.textContent = '✖';
+        } else {
+          navToggle.textContent = '☰';
+        }
+      });
+    }
   </script>
 </body>
 </html>

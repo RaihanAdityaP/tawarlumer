@@ -104,6 +104,13 @@
 
     .nav-toggle {
       display: none;
+      background: var(--glass);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.2rem;
     }
 
     /* =========================
@@ -432,32 +439,22 @@
        Responsive
     ========================= */
     @media (max-width: 768px) {
-      .container { padding: 20px; }
-      
-      .content h1 {
-        font-size: 1.8rem;
-      }
-
-      .nav-toggle { 
-        display: block; 
-      }
-      
-      .main-nav { 
-        display: none; 
-      }
-      
+      .swot-grid { grid-template-columns: 1fr; }
+      .container { padding: 0 1rem; }
+      .nav-toggle { display: block; }
+      .main-nav { display: none; flex-direction: column; gap: 0; }
       .header-inner.open .main-nav {
         display: flex;
-        flex-direction: column;
         position: absolute;
-        top: 64px;
-        right: 18px;
-        min-width: 160px;
-        padding: 12px;
-        border-radius: 8px;
-        background: rgba(6,10,16,0.95);
-        backdrop-filter: blur(10px);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(26, 31, 54, 0.95);
+        padding: 1rem;
+        border-top: 1px solid var(--border);
+      }
+      .content h1 {
+        font-size: 1.8rem;
       }
 
       .pill-nav {
@@ -636,10 +633,18 @@
 
       // Nav toggle mobile
       const navToggle = document.querySelector('.nav-toggle');
-      const header = document.querySelector('.header-inner');
-      if (navToggle && header) {
-        navToggle.addEventListener('click', () => header.classList.toggle('open'));
-      }
+        const headerInner = document.querySelector('.header-inner');
+        if (navToggle && headerInner) {
+          navToggle.addEventListener('click', () => {
+            headerInner.classList.toggle('open');
+            // Ubah ikon ☰ jadi ✖ saat menu terbuka
+            if (headerInner.classList.contains('open')) {
+              navToggle.textContent = '✖';
+            } else {
+              navToggle.textContent = '☰';
+            }
+          });
+        }
 
       // Pill navigation with smooth transitions
       document.querySelectorAll('.pill').forEach(pill => {
